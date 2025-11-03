@@ -1,0 +1,94 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ============================
+   ✅ TradingView-Style Dark Theme
+   ============================ */
+
+@layer base {
+  :root {
+    /* Core background */
+    --background: 230 15% 8%;        /* #0d0f12 */
+    --foreground: 210 20% 96%;       /* light gray text */
+
+    /* Cards */
+    --card: 230 15% 10%;             /* #111318 */
+    --card-foreground: 210 20% 96%;
+
+    /* Panels / popovers */
+    --popover: 230 15% 12%;
+    --popover-foreground: 210 20% 96%;
+
+    /* Accent (subtle blue, NOT neon) */
+    --primary: 210 70% 55%;          /* slightly muted blue */
+    --primary-foreground: 230 15% 8%;
+
+    /* Muted gray tones */
+    --muted: 230 10% 22%;
+    --muted-foreground: 210 10% 70%;
+
+    /* Loss / Profit colors (softened) */
+    --profit: 145 45% 55%;           /* soft green */
+    --loss: 0 70% 55%;               /* soft red */
+
+    /* Borders */
+    --border: 230 10% 22%;
+    --input: 230 10% 18%;
+    --ring: 210 80% 60%;
+
+    --radius: 0.75rem;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    background: #0d0f12; /* SOLID, not gradient */
+    min-height: 100vh;
+  }
+}
+
+/* ============================
+   ✅ Utilities (Cleaned)
+   ============================ */
+
+@layer utilities {
+  /* ✖ Removed:
+     - glow-primary
+     - glow-loss
+     - glow-profit
+     - gradients
+     - glassmorphism
+     - animated price glow
+     Because you told me CLEARLY: “REMOVE ALL neon ones”
+  */
+
+  /* ✅ Clean card */
+  .dark-card {
+    @apply bg-[hsl(var(--card))] border border-[hsl(var(--border))] rounded-xl;
+  }
+
+  /* ✅ Clean hover */
+  .dark-hover {
+    @apply hover:bg-[hsl(var(--muted))] transition;
+  }
+
+  /* ✅ Subtle text colors */
+  .text-soft {
+    @apply text-[hsl(var(--muted-foreground))];
+  }
+
+  /* ✅ Profit / Loss colors */
+  .profit {
+    color: hsl(var(--profit));
+  }
+
+  .loss {
+    color: hsl(var(--loss));
+  }
+}
