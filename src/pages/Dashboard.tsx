@@ -269,7 +269,6 @@ const Dashboard = () => {
               <span className="text-xs text-gray-400">Compact</span>
               <Switch checked={density === 'compact'} onCheckedChange={(v) => { setDensity(v ? 'compact' : 'comfortable'); savePrefs({ density: v ? 'compact' : 'comfortable' }); }} />
             </div>
-            <span className="text-sm text-gray-300">{currentUser?.email}</span>
             <button
               onClick={handleLogout}
               className="px-3 py-2 border border-gray-700 rounded hover:bg-gray-800"

@@ -1,12 +1,8 @@
 import React from "react";
-import { Navigate, useLocation } from "react-router-dom";
-import { isAuthenticated } from "@/lib/auth";
 
+// Frontend-only deployment: allow guest access to protected pages.
+// If you later re-enable auth, restore redirect behavior here.
 const AuthGuard: React.FC<{ children: React.ReactElement }> = ({ children }) => {
-  const location = useLocation();
-  if (!isAuthenticated()) {
-    return <Navigate to="/auth" state={{ from: location }} replace />;
-  }
   return children;
 };
 

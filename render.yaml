@@ -1,0 +1,17 @@
+services:
+  - type: web
+    name: finmate-api
+    env: node
+    plan: free
+    rootDir: server
+    buildCommand: "npm install"
+    startCommand: "node index.js"
+    autoDeploy: true
+    healthCheckPath: "/api/healthz"
+    envVars:
+      - key: MONGO_URI
+        sync: false # set in Render Dashboard
+      - key: JWT_SECRET
+        sync: false # set in Render Dashboard
+      - key: NODE_ENV
+        value: production

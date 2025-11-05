@@ -24,6 +24,11 @@ app.use('/api', (req, _res, next) => {
   next();
 });
 
+// Simple health check for uptime monitors and platform health probes
+app.get('/api/healthz', (_req, res) => {
+  res.json({ ok: true });
+});
+
 // DB
 connectDB(process.env.MONGO_URI).then(() => {
   console.log('✅ MongoDB connected');

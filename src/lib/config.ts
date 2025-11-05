@@ -1,5 +1,5 @@
 // Centralized client configuration
-// Set VITE_API_BASE_URL in your environment (e.g., https://api.yourdomain.com)
-// Fallbacks to localhost for local development.
-export const API_BASE_URL = (import.meta as any)?.env?.VITE_API_BASE_URL?.replace(/\/$/, '') || 'http://localhost:4001';
-export const API_BASE = `${API_BASE_URL}/api`;
+// Use VITE_API_BASE_URL when provided; otherwise default to same-origin '/api'
+const raw = (import.meta as any)?.env?.VITE_API_BASE_URL as string | undefined;
+export const API_BASE_URL = raw ? raw.replace(/\/$/, '') : '';
+export const API_BASE = API_BASE_URL ? `${API_BASE_URL}/api` : '/api';
