@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { register as localRegister, login as localLogin } from "@/lib/localAuth";
+import { register as apiRegister, login as apiLogin } from "@/lib/auth";
 import { useNavigate } from "react-router-dom";
 import { toast } from "@/components/ui/use-toast";
 import astronaut from "@/image/astronaut.png";
@@ -28,19 +28,23 @@ const Auth: React.FC = () => {
     }
 
     if (mode === "login") {
-      const { user, error } = await localLogin(values.email, values.password);
-      if (error) return toast({ title: "Login failed", description: error });
-
-      toast({ title: "Welcome back!", description: "Logged in successfully." });
-      return navigate("/dashboard");
+      try {
+        await apiLogin(values.email, values.password);
+        toast({ title: "Welcome back!", description: "Logged in successfully." });
+        return navigate("/dashboard");
+      } catch (e: any) {
+        return toast({ title: "Login failed", description: e?.response?.data?.error || "Unable to login" });
+      }
     }
 
     if (mode === "register") {
-      const { user, error } = await localRegister(values.email, values.password);
-      if (error) return toast({ title: "Registration failed", description: error });
-
-      toast({ title: "Account created", description: "You're now signed in." });
-      return navigate("/dashboard");
+      try {
+        await apiRegister(values.email, values.password);
+        toast({ title: "Account created", description: "You're now signed in." });
+        return navigate("/dashboard");
+      } catch (e: any) {
+        return toast({ title: "Registration failed", description: e?.response?.data?.error || "Unable to register" });
+      }
     }
   };
 

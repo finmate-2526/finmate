@@ -1,6 +1,6 @@
 import React from "react";
 import { Navigate, useLocation } from "react-router-dom";
-import { isAuthenticated } from "@/lib/localAuth";
+import { isAuthenticated } from "@/lib/auth";
 
 const AuthGuard: React.FC<{ children: React.ReactElement }> = ({ children }) => {
   const location = useLocation();

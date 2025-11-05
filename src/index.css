@@ -2,93 +2,135 @@
 @tailwind components;
 @tailwind utilities;
 
-/* ============================
-   ✅ TradingView-Style Dark Theme
-   ============================ */
-
 @layer base {
   :root {
-    /* Core background */
-    --background: 230 15% 8%;        /* #0d0f12 */
-    --foreground: 210 20% 96%;       /* light gray text */
+    --background: 0 0% 3.9%;
+    --foreground: 0 0% 98%;
 
-    /* Cards */
-    --card: 230 15% 10%;             /* #111318 */
-    --card-foreground: 210 20% 96%;
+    --card: 0 0% 3.9%;
+    --card-foreground: 0 0% 98%;
+ 
+    --popover: 0 0% 3.9%;
+    --popover-foreground: 0 0% 98%;
+ 
+    --primary: 210 40% 96.1%;
+    --primary-foreground: 210 40% 9.8%;
+ 
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 0 0% 98%;
+ 
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+ 
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 0 0% 98%;
+ 
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
 
-    /* Panels / popovers */
-    --popover: 230 15% 12%;
-    --popover-foreground: 210 20% 96%;
-
-    /* Accent (subtle blue, NOT neon) */
-    --primary: 210 70% 55%;          /* slightly muted blue */
-    --primary-foreground: 230 15% 8%;
-
-    /* Muted gray tones */
-    --muted: 230 10% 22%;
-    --muted-foreground: 210 10% 70%;
-
-    /* Loss / Profit colors (softened) */
-    --profit: 145 45% 55%;           /* soft green */
-    --loss: 0 70% 55%;               /* soft red */
-
-    /* Borders */
-    --border: 230 10% 22%;
-    --input: 230 10% 18%;
-    --ring: 210 80% 60%;
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 212.7 26.8% 83.9%;
 
     --radius: 0.75rem;
   }
-}
+ 
+  .dark {
+    --background: 0 0% 3.9%;
+    --foreground: 0 0% 98%;
+ 
+    --card: 0 0% 3.9%;
+    --card-foreground: 0 0% 98%;
+ 
+    --popover: 0 0% 3.9%;
+    --popover-foreground: 0 0% 98%;
+ 
+    --primary: 210 40% 96.1%;
+    --primary-foreground: 210 40% 9.8%;
+ 
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 0 0% 98%;
+ 
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+ 
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 0 0% 98%;
+ 
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
 
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 212.7 26.8% 83.9%;
+  }
+}
+ 
 @layer base {
   * {
     @apply border-border;
   }
-
   body {
     @apply bg-background text-foreground;
-    background: #0d0f12; /* SOLID, not gradient */
-    min-height: 100vh;
   }
 }
 
-/* ============================
-   ✅ Utilities (Cleaned)
-   ============================ */
+/* --- Custom Global Styles --- */
 
 @layer utilities {
-  /* ✖ Removed:
-     - glow-primary
-     - glow-loss
-     - glow-profit
-     - gradients
-     - glassmorphism
-     - animated price glow
-     Because you told me CLEARLY: “REMOVE ALL neon ones”
-  */
-
-  /* ✅ Clean card */
-  .dark-card {
-    @apply bg-[hsl(var(--card))] border border-[hsl(var(--border))] rounded-xl;
+  .gradient-text {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-primary to-blue-400;
   }
 
-  /* ✅ Clean hover */
-  .dark-hover {
-    @apply hover:bg-[hsl(var(--muted))] transition;
+  .glow-border {
+    @apply relative;
+  }
+  .glow-border::before {
+    content: '';
+    @apply absolute -inset-px rounded-xl bg-gradient-to-r from-blue-500/50 to-primary/50 opacity-0 transition-opacity duration-300;
+  }
+  .glow-border:hover::before {
+    @apply opacity-75;
   }
 
-  /* ✅ Subtle text colors */
-  .text-soft {
-    @apply text-[hsl(var(--muted-foreground))];
+  .glow-border-intense::before {
+     content: '';
+    @apply absolute -inset-px rounded-2xl bg-gradient-to-r from-blue-500/50 to-primary/50 opacity-100 blur-lg;
   }
 
-  /* ✅ Profit / Loss colors */
-  .profit {
-    color: hsl(var(--profit));
+  .glow-container {
+    @apply relative;
+  }
+  .glow-container::before {
+    content: '';
+    @apply absolute -inset-px rounded-2xl bg-gradient-to-r from-blue-600/30 to-primary/30 opacity-0 transition-opacity duration-500 blur-xl;
+  }
+  .glow-container:hover::before {
+    @apply opacity-50;
   }
 
-  .loss {
-    color: hsl(var(--loss));
+  .glow-input:focus {
+    @apply shadow-primary-glow;
+  }
+
+  .glow-button {
+    @apply bg-primary text-primary-foreground shadow-lg shadow-primary/20 transition-all duration-300 hover:bg-primary/90 hover:shadow-primary/40;
+  }
+
+  .glow-dot {
+    @apply fill-primary stroke-primary shadow-primary-glow;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 6px;
+  }
+  .custom-scrollbar::-webkit-scrollbar-track {
+    @apply bg-neutral-900;
+  }
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    @apply bg-neutral-700 rounded-full;
+  }
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    @apply bg-neutral-600;
   }
 }
