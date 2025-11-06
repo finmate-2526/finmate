@@ -24,7 +24,8 @@ app.use(cors({
   origin: (origin, callback) => {
     // Allow non-browser requests (no Origin header) and allowlisted origins
     if (!origin) return callback(null, true);
-    return callback(null, ALLOWED_ORIGINS.includes(origin));
+    const ok = ALLOWED_ORIGINS.includes(origin) || /\.vercel\.app$/i.test(new URL(origin).hostname);
+    return callback(null, ok);
   },
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
