@@ -13,9 +13,26 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 4001;
 
-app.use(cors({ origin: true, credentials: false }));
+// --- CORS ---
+// Allow only our deploy origins and localhost (dev). Credentials enabled for cookie/JWT scenarios.
+const ALLOWED_ORIGINS = [
+  'https://finmate-2526.vercel.app',
+  'http://localhost:5173'
+];
+
+app.use(cors({
+  origin: (origin, callback) => {
+    // Allow non-browser requests (no Origin header) and allowlisted origins
+    if (!origin) return callback(null, true);
+    return callback(null, ALLOWED_ORIGINS.includes(origin));
+  },
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  credentials: true,
+  maxAge: 86400
+}));
 app.use(express.json());
-// Ensure CORS preflight (OPTIONS) is handled with 204
+// Ensure CORS preflight (OPTIONS) is handled
 app.options('*', cors());
 
 // Lightweight request logger for API routes (dev aid)
@@ -24,8 +41,11 @@ app.use('/api', (req, _res, next) => {
   next();
 });
 
-// Simple health check for uptime monitors and platform health probes
+// Simple health checks for uptime monitors and platform health probes
 app.get('/api/healthz', (_req, res) => {
+  res.json({ ok: true });
+});
+app.get('/api/health', (_req, res) => {
   res.json({ ok: true });
 });
 
