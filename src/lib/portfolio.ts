@@ -1,7 +1,6 @@
 import axios from 'axios';
 import { authHeaders } from './auth';
-
-const API_BASE_URL = 'http://localhost:4001/api';
+import { API_BASE as API_BASE_URL } from './config';
 
 export type Position = {
   symbol: string;

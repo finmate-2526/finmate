@@ -24,7 +24,10 @@ app.use(cors({
   origin: (origin, callback) => {
     // Allow non-browser requests (no Origin header) and allowlisted origins
     if (!origin) return callback(null, true);
-    const ok = ALLOWED_ORIGINS.includes(origin) || /\.vercel\.app$/i.test(new URL(origin).hostname);
+    const hostname = (() => { try { return new URL(origin).hostname; } catch { return ''; } })();
+    const isVercel = /\.vercel\.app$/i.test(hostname);
+    const isLocal = /^(localhost|127\.0\.0\.1)$/i.test(hostname);
+    const ok = ALLOWED_ORIGINS.includes(origin) || isVercel || isLocal;
     return callback(null, ok);
   },
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
