@@ -163,19 +163,8 @@ Base: `/api`
 - Requests include `Authorization: Bearer <token>` (see `lib/auth.ts`).
 - Middleware (`middleware/auth.js`) verifies token and attaches `req.user`.
 
-## 11. Portfolio & Watchlist Behavior
-- Watchlist has unauthenticated fallback using localStorage when no token (see `lib/api.ts` and add/remove logic).
-- Portfolio currently requires authentication (no local fallback). Could be extended similarly if needed.
 
-## 12. Indicators & Prediction Logic
-Implemented in `lib/indicators.ts` and `lib/rulePredictor.ts`:
-- RSI, MACD, Bollinger Bands, ATR, SMA/EMA.
-- Prediction heuristic: combines oversold/overbought (RSI), momentum (MACD histogram + slope), mean reversion (Bollinger band position), volatility (ATR%) to produce:
-  - trend (up/down)
-  - confidence (scaled 15–100%)
-  - projected 7‑day move (bounded up to 2%)
-  - rationale array for UI transparency.
-- Falls back to minimal +0.25% drift when insufficient data (<20 closes).
+
 
 ## 13. Troubleshooting
 | Symptom | Cause | Fix |

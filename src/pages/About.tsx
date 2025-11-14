@@ -4,9 +4,9 @@ import { Button } from '@/components/ui/button';
 import { ArrowLeft } from 'lucide-react';
 import { TeamCard } from '@/components/TeamCard';
 import hariom from '@/image/hariom.jpg';
-import abhinav from '@/image/abhinav.jpg';
+import abhinav from '@/image/abhinav_new.jpg';
 import vansh from '@/image/vansh.jpg';
-import harshad from '@/image/harshad.jpg';
+import harshad from '@/image/harshad_new.jpg';
 import bull from '@/image/bull_bear.jpg';
 function AnimatedCard({ side = 'left', children }: { side?: 'left' | 'right'; children: React.ReactNode }) {
   const ref = useRef<HTMLDivElement | null>(null);
